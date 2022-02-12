@@ -10,4 +10,6 @@ In the example, I read from the default binlog file, in case the MySQL administr
 
 #REST-API
 
+
+Generate mock data [here](http://filldb.info/)
  -->

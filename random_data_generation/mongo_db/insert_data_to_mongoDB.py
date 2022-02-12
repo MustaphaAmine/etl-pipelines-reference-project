@@ -24,13 +24,9 @@ mongoClient = MongoClient("mongodb://root:" + password
 mongo_db = mongoClient[database_name]
 mongo_collection = mongo_db[collection_name]
 
-# loading posts data from a json file 
-with open("random_data_generation/mongo_db/posts.json" ,'r') as fp: 
-    posts_list = json.load(fp)
-
 # loading posts data from a json file posts
 with open("random_data_generation/mongo_db/authors.json" ,'r') as fp: 
     authors_list = json.load(fp)
 
-mongo_collection.insert_many(posts_list)
+
 mongo_collection.insert_many(authors_list)
