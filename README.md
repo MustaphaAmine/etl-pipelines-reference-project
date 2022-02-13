@@ -11,5 +11,10 @@ In the example, I read from the default binlog file, in case the MySQL administr
 #REST-API
 
 
+Transformation
+    Drop duplicate (using distinct Or window function) page 117
+    URL parsing page 119
+
+
 Generate mock data [here](http://filldb.info/)
  -->
