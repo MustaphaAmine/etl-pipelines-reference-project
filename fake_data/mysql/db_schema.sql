@@ -17,7 +17,6 @@ CREATE TABLE city (
 CREATE TABLE address (
     address_id SMALLINT AUTO_INCREMENT,
     address VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
-    district VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     postal_code VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     phone_number VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     city_id SMALLINT,
@@ -33,7 +32,6 @@ CREATE TABLE library (
     PRIMARY KEY (library_id),
     FOREIGN KEY (address_id) REFERENCES address(address_id) ON DELETE CASCADE
 );
-
 
 CREATE TABLE staff (
     staff_id TINYINT AUTO_INCREMENT,
@@ -51,9 +49,6 @@ CREATE TABLE staff (
     FOREIGN KEY (library_id) REFERENCES library(library_id) ON DELETE CASCADE
 );
 
-
-
-
 CREATE TABLE customer (
     customer_id SMALLINT AUTO_INCREMENT,
     library_id TINYINT,
@@ -69,13 +64,12 @@ CREATE TABLE customer (
     FOREIGN KEY (library_id) REFERENCES library(library_id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE book (
     book_id INT AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL COLLATE 'utf8_unicode_ci',
     description TEXT,
     release_date DATE,
-    language VARCHAR(20) NOT NULL COLLATE 'utf8_unicode_ci', 
+    language VARCHAR(20) NOT NULL COLLATE 'utf8_unicode_ci',
     original_language VARCHAR(20) NOT NULL COLLATE 'utf8_unicode_ci',
     rental_duration TINYINT,
     rating DECIMAL(3, 2),
@@ -90,6 +84,7 @@ CREATE TABLE author (
     last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (author_id)
 );
+
 CREATE TABLE book_author (
     author_id SMALLINT,
     book_id INT,
@@ -124,8 +119,6 @@ CREATE TABLE rental (
 
 CREATE TABLE payment (
     payment_id SMALLINT AUTO_INCREMENT,
-    customer_id SMALLINT,
-    staff_id TINYINT,
     rental_id INT,
     amount DECIMAL(5, 2),
     payment_date DATETIME,
