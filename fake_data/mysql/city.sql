@@ -1,0 +1,21 @@
+-- city
+insert into city (city_id, city_name, country_id, last_update) values (1, 'Mońki', 4, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (2, 'Ciudad del Este', 4, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (3, 'Osieczany', 4, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (4, 'Muaraenim', 2, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (5, 'Valleymount', 5, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (6, 'Hongmiao', 2, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (7, 'Trâu Quỳ', 5, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (8, 'Kadusimbar', 1, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (9, 'Ust-Kamenogorsk', 1, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (10, 'Karasgede', 4, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (11, 'Qingyang', 3, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (12, 'Boto', 5, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (13, 'Chunjing', 4, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (14, 'Lac-Mégantic', 1, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (15, 'Damnica', 3, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (16, 'Koba', 5, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (17, 'Baja Mar', 2, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (18, 'Santa Elena', 3, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (19, 'Phoenix', 5, '2021-01-01 00:00:00');
+insert into city (city_id, city_name, country_id, last_update) values (20, 'Dadong', 2, '2021-01-01 00:00:00');

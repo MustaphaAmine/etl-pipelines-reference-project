@@ -26,7 +26,7 @@ CREATE TABLE address (
 );
 
 CREATE TABLE library (
-    library_id TINYINT AUTO_INCREMENT,
+    library_id SMALLINT AUTO_INCREMENT,
     address_id SMALLINT,
     last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (library_id),
@@ -34,12 +34,12 @@ CREATE TABLE library (
 );
 
 CREATE TABLE staff (
-    staff_id TINYINT AUTO_INCREMENT,
+    staff_id SMALLINT AUTO_INCREMENT,
     last_name VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     first_name VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     email VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     address_id SMALLINT,
-    library_id TINYINT,
+    library_id SMALLINT,
     active BOOLEAN,
     username VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     password VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
@@ -51,7 +51,7 @@ CREATE TABLE staff (
 
 CREATE TABLE customer (
     customer_id SMALLINT AUTO_INCREMENT,
-    library_id TINYINT,
+    library_id SMALLINT,
     first_name VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     last_name VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
     email VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
@@ -96,7 +96,7 @@ CREATE TABLE book_author (
 CREATE TABLE inventory (
     inventory_id INT AUTO_INCREMENT,
     book_id INT,
-    library_id TINYINT,
+    library_id SMALLINT,
     last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (inventory_id),
     FOREIGN KEY (library_id) REFERENCES library (library_id) ON DELETE CASCADE,
@@ -109,7 +109,7 @@ CREATE TABLE rental (
     inventory_id INT,
     customer_id SMALLINT,
     return_date DATETIME,
-    staff_id TINYINT,
+    staff_id SMALLINT,
     last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (rental_id),
     FOREIGN KEY (inventory_id) REFERENCES inventory(inventory_id) ON DELETE CASCADE,
@@ -124,7 +124,5 @@ CREATE TABLE payment (
     payment_date DATETIME,
     last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (payment_id),
-    FOREIGN KEY (rental_id) REFERENCES rental(rental_id) ON DELETE CASCADE,
-    FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON DELETE CASCADE,
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE
+    FOREIGN KEY (rental_id) REFERENCES rental(rental_id) ON DELETE CASCADE
 );
