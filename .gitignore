@@ -1,8 +1,11 @@
 /env
 /test_files
 /generate_fake_dbdata
+/keys
 *.py[cod]
 *$py.class
 */.DS_Store
 .DS_Store
 *.log
+*.csv
+*.json

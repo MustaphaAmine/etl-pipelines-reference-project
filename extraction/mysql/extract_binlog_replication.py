@@ -5,7 +5,7 @@ import pymysqlreplication
 import csv
 
 # get the MySQL connection info
-parser = configparser.ConfigParser() 
+parser = configparser.ConfigParser()
 parser.read("pipeline.conf") 
 hostname = parser.get("mysql_config", "hostname") 
 port = parser.get("mysql_config", "port") 

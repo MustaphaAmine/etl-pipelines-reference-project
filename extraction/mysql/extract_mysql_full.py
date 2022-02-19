@@ -1,7 +1,8 @@
 import pymysql
-import boto3
 import csv
 import configparser
+from google.cloud import storage
+
 import logging
 from logging.config import fileConfig
 
@@ -24,14 +25,14 @@ conn = pymysql.connect(host=hostname,
             port=int(port),
             password=password)
 
-# it would be best if we here use the logging module instead
+# it would be best if we here use the logging module instead of the print function
 if conn is None:
     logger.error("Error connecting to MySQL database")
 else:
     logger.info("MySQL connection established!")
 
-m_query = "SELECT * FROM posts;"
-local_filename = "posts_extract.csv"
+m_query = "SELECT * FROM country;"
+local_filename = "country.csv"
 
 m_cursor = conn.cursor()
 m_cursor.execute(m_query)
@@ -40,7 +41,23 @@ results = m_cursor.fetchall()
 with open(local_filename, 'w') as fp:
     csv_w = csv.writer(fp)
     csv_w.writerows(results)
+    logger.info(f"{local_filename} was successfully created and stored")
 
 fp.close()
 m_cursor.close()
 conn.close()
+
+""" Upload data to a bucket"""
+# Explicitly use service account credentials by specifying the private key file
+# the folder keys that contains the service account credentials is not uploaded to Github for security measures
+
+storage_client = storage.Client.from_service_account_json(
+    './keys/etl-pipelines-key.json')
+
+bucket_name = 'etl-pipeline-loading'  
+blob_name = 'country.csv'  
+
+bucket = storage_client.get_bucket(bucket_name)
+blob = bucket.blob(blob_name)
+blob.upload_from_filename(local_filename)
+logger.info(f"{local_filename} was successfully uploaded to the bucket")

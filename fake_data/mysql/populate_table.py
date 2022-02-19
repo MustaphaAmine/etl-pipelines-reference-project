@@ -3,6 +3,12 @@ from faker import Faker
 import sys
 import random
 import datetime
+import logging
+from logging.config import fileConfig
+
+# initiate the logger
+fileConfig('./logging_conf.ini')
+logger = logging.getLogger()
 
 """
 Set up connection between sqlalchemy and MySql database
@@ -60,6 +66,7 @@ class GenerateData:
                     last_update = datetime.datetime.now()
                 )
                 conn.execute(insert_stmt)
+        logger.info("The countries table is now populated with data")
     
     def create_cities_table(self):
         with engine.begin() as conn:
@@ -71,6 +78,7 @@ class GenerateData:
                     last_update = datetime.datetime.now()
                 )
                 conn.execute(insert_stmt)
+        logger.info("The cities table is now populated with data")
 
     def create_addresses_table(self):
         with engine.begin() as conn:
@@ -84,14 +92,9 @@ class GenerateData:
                     last_update = datetime.datetime.now()
                 )
                 conn.execute(insert_stmt)
+        logger.info("The addresses table is now populated with data")
 
 
 if __name__ == "__main__":    
     generate_data = GenerateData()   
     generate_data.create_data()
-
-
-# python fake_data/mysql/create_tables.py
-# python  fake_data/mysql/populate_table.py country 10
-# python  fake_data/mysql/populate_table.py city 80
-# python  fake_data/mysql/populate_table.py address 1000

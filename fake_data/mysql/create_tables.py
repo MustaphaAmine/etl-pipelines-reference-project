@@ -1,5 +1,10 @@
 from sqlalchemy import create_engine, MetaData, \
     Column, Integer, Numeric, String, Boolean, DateTime, Date, Table, ForeignKey
+import logging
+from logging.config import fileConfig
+
+fileConfig('./logging_conf.ini')
+logger = logging.getLogger()
 
 # Set up connection between sqlalchemy and MySql SGBD
 engine = create_engine(
@@ -82,4 +87,4 @@ with engine.begin() as conn:
     metadata.create_all(conn)
     # Log the tables as they are created
     for table in metadata.tables.keys():
-        print(f"{table} successfully created")
+        logger.info(f"{table} successfully created")
