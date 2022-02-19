@@ -1,3 +1,4 @@
+from concurrent.futures.process import _python_exit
 from sqlalchemy import create_engine, MetaData, select
 from faker import Faker
 import sys
@@ -85,7 +86,7 @@ class GenerateData:
             city_ids = conn.execute(select([cities.c.city_id])).fetchall()
             for _ in range(self.num_records):
                 insert_stmt = addresses.insert().values(
-                    address = faker.address(),
+                    address = faker.address().replace('\n', '\\n'),
                     postal_code = faker.zipcode(),
                     phone_number = faker.phone_number(),
                     city_id = random.choice(city_ids)[0],
