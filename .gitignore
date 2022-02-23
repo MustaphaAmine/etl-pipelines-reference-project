@@ -2,6 +2,7 @@
 /test_files
 /generate_fake_dbdata
 /keys
+*__pycache__/
 *.py[cod]
 *$py.class
 */.DS_Store
