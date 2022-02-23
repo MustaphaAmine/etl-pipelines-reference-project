@@ -45,7 +45,6 @@ class GenerateData:
     generate a specific number of records to a target table in the
     MySql database.
     """
-
     def __init__(self):
         """
         define command line arguments.
@@ -59,6 +58,7 @@ class GenerateData:
         """
         if self.table not in metadata.tables.keys():
             return print(f"{self.table} does not exist")
+        
         if self.table == "country":
             self.create_countries_table()
 
@@ -191,7 +191,6 @@ class GenerateData:
                         language = faker.language_code(),
                         original_language = faker.language_code(),
                         rental_duration = random.randint(14, 60),
-                        rating =random.randint(1,5),
                         last_update = datetime.datetime.now()
                 )
                 conn.execute(insert_stmt)
@@ -258,6 +257,7 @@ class GenerateData:
                     inventory_id = inventory_id_choice, 
                     customer_id = customers_id_choice,
                     staff_id = random.choice(staff_ids)[0],
+                    rating =random.randint(1,5),
                     last_update = datetime.datetime.now()
                 )
                 conn.execute(insert_stmt)

@@ -91,7 +91,6 @@ book_table = Table(
     Column("language", String(50), nullable=False),
     Column("original_language", String(50), nullable=False),
     Column("rental_duration", Integer, nullable=False),
-    Column("rating", Float, nullable=False),
     Column("last_update", DateTime, nullable=False)
 )
 author_table = Table(
@@ -117,7 +116,7 @@ inventory_table = Table(
     Column("inventory_id", Integer, primary_key=True),
     Column("book_id", ForeignKey("book.book_id"),
            nullable=False),
-    Column("library_id", ForeignKey("library.library_id"), 
+    Column("library_id", ForeignKey("library.library_id"),
            nullable=False),
     Column("last_update", DateTime, nullable=False)
 )
@@ -133,6 +132,7 @@ rental_table = Table(
            nullable=False),
     Column("staff_id", ForeignKey("staff.staff_id"),
            nullable=False),
+    Column("rating", Integer, nullable=False),
     Column("last_update", DateTime, nullable=False)
 )
 payment_table = Table(
@@ -145,7 +145,6 @@ payment_table = Table(
     Column("payment_date", Date, nullable=False),
     Column("last_update", DateTime, nullable=False)
 )
-
 
 # Start transaction to commit DDL to mysql database
 with engine.begin() as conn:
