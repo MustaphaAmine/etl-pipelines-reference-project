@@ -10,10 +10,8 @@ logger = logging.getLogger()
 engine = create_engine(
     "mysql+mysqlconnector://library_admin:library_admin_pass@localhost:3306/library_management"
 )
-
 # Create a metadata object
 metadata = MetaData()
-
 # DDL for creating the different tables of the database
 country_table = Table(
     "country",

@@ -13,8 +13,7 @@ dag = DAG(
 
 t1 = BashOperator(
     task_id='print_date',
-    bash_command='./bash_test.sh ',
-    # bash_command = 'date',
+    bash_command = 'date',
     dag=dag,
 )
 
@@ -22,7 +21,6 @@ t2 = BashOperator(
     task_id='sleep',
     depends_on_past = False,
     bash_command='sleep 3',
-    # bash_command='python /p/test_1.py',
     dag=dag,
 )
 

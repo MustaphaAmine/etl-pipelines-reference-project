@@ -2,6 +2,8 @@
 /test_files
 /generate_fake_dbdata
 /keys
+/extract-transform-load/extraction/mongodb
+/extract-transform-load/extraction/rest-api
 *__pycache__/
 *.py[cod]
 *$py.class
