@@ -2,6 +2,8 @@
 from airflow import DAG
 from datetime import timedelta
 from airflow.operators.bash_operator import BashOperator
+from airflow.operators.python_operator import PythonOperator
+from functions.helpers import test_function
 from airflow.utils.dates import days_ago
 
 dag = DAG(
@@ -23,6 +25,8 @@ t2 = BashOperator(
     bash_command='sleep 3',
     dag=dag,
 )
+
+
 
 t3 = BashOperator(
     task_id='print_end', 

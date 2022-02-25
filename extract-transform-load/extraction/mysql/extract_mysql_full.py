@@ -37,9 +37,6 @@ local_filename = "addresses.csv"
 m_cursor = conn.cursor()
 m_cursor.execute(m_query)
 results = m_cursor.fetchall()
-# print(type(results))
-# t = [s for s in (1,2,3)
-# print(t)
 
 with open(local_filename, 'w') as fp:
     csv_w = csv.writer(fp)

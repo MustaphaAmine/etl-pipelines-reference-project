@@ -22,7 +22,7 @@ services:
   # Postgres that will hold the airflow metadata database
   airflow-metadata:
     image: postgres:latest
-    container_name: airflow-metadata-postgres
+    container_name: postgres
     environment:
       POSTGRES_USER: 'airflow_user'
       POSTGRES_PASSWORD: 'airflow_pass'
@@ -34,7 +34,7 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
-  
+
   # airflow_service 
   airflow: 
     build: ./docker/airflow
@@ -43,6 +43,7 @@ services:
     volumes:
       - ./airflow/airflow.cfg:/opt/airflow/airflow.cfg
       - ./airflow/dags:/opt/airflow/dags
+      - ./extract-transform-load/extraction/functions:/opt/airflow/dags/functions
     ports:
       - '8080:8080'
     healthcheck:
@@ -50,7 +51,6 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
-  
 
 volumes:
   mysql-db:
