@@ -1,11 +1,15 @@
 # Move to the AIRFLOW HOME directory
 cd $AIRFLOW_HOME
-# Export environement variables
-export AIRFLOW__CORE__LOAD_EXAMPLES=True
+#
 # Initiliase the metadatabase
 airflow db init
 # Create User
-airflow users create -e "admin@airflow.com" -f "airflow" -l "airflow" -p "airflow" -r "Admin" -u "airflow"
+airflow users create -e "admin@airflow.com"\
+                     -r "Admin" \
+                     -u "airflow" \
+                     -p "airflow" \
+                     -f "airflow" \
+                     -l "airflow"              
 # Run the scheduler in background
 airflow scheduler &> /dev/null &
 # Run the web sever in foreground (for docker logs)

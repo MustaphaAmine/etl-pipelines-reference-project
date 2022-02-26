@@ -26,8 +26,6 @@ t2 = BashOperator(
     dag=dag,
 )
 
-
-
 t3 = BashOperator(
     task_id='print_end', 
     depends_on_past=False, 

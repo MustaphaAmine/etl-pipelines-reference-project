@@ -43,7 +43,7 @@ services:
     volumes:
       - ./airflow/airflow.cfg:/opt/airflow/airflow.cfg
       - ./airflow/dags:/opt/airflow/dags
-      - ./extract-transform-load/extraction/functions:/opt/airflow/dags/functions
+      # - ./extract-transform-load/extraction/mysql:/opt/airflow/dags/executables
     ports:
       - '8080:8080'
     healthcheck:
