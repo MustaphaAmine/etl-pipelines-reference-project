@@ -20,20 +20,20 @@ services:
       - mysql-db:/var/lib/mysql
 
   # Postgres that will hold the airflow metadata database
-  airflow-metadata:
-    image: postgres:latest
-    container_name: postgres
-    environment:
-      POSTGRES_USER: 'airflow_user'
-      POSTGRES_PASSWORD: 'airflow_pass'
-      POSTGRES_DB: 'airflow_db'
-    ports:
-      - '5432:5432'
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "airflow_db", "-U", "airflow_user" ]
-      timeout: 45s
-      interval: 10s
-      retries: 10
+  # airflow-metadata:
+  #   image: postgres:latest
+  #   container_name: postgres
+  #   environment:
+  #     POSTGRES_USER: 'airflow_user'
+  #     POSTGRES_PASSWORD: 'airflow_pass'
+  #     POSTGRES_DB: 'airflow_db'
+  #   ports:
+  #     - '5432:5432'
+  #   healthcheck:
+  #     test: [ "CMD", "pg_isready", "-q", "-d", "airflow_db", "-U", "airflow_user" ]
+  #     timeout: 45s
+  #     interval: 10s
+  #     retries: 10
 
   # airflow_service 
   airflow: 

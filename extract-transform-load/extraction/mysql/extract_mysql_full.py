@@ -41,128 +41,71 @@ def extract_data(local_filename):
     """This function create a simple Query """
     conn = establish_connection_with_mysql_db()
     m_query = """
-    WITH country_last_update AS (
-        SELECT 
-            country_id,
-            country_name
-        FROM (
-                SELECT 
-                    country_id, 
-                    country_name,
-                    row_number() OVER (PARTITION BY country_id ORDER BY last_update DESC) AS rn
-                FROM country) AS rank_country_by_last_update
-        WHERE rn = 1),
-        city_last_update AS (
-        SELECT 
-            city_id,
-            city_name,
-            country_id
-        FROM (
-                SELECT 
-                    *,
-                    row_number() OVER (PARTITION BY city_id ORDER BY last_update DESC) AS rn
-                FROM city) AS rank_city_by_last_update
-        WHERE rn = 1),
-            address_last_update AS (
-        SELECT 
-            address_id,
-            address,
-            city_id
-        FROM (
-                SELECT 
-                    *,
-                    row_number() OVER (PARTITION BY address_id ORDER BY last_update DESC) AS rn
-                FROM address) AS rank_address_by_last_update
-        WHERE rn = 1), 
-            address_all_info AS (
-        SELECT 
-            address_id,
-            address,
-            city_name,
-            country_name 
-        FROM 
-            address_last_update
-        LEFT JOIN 
-            city_last_update USING(city_id)
-        LEFT JOIN 
-            country_last_update USING(country_id)),
-            customer_last_update AS (
-        SELECT 
-            customer_id,
-            last_name AS cust_last_name, 
-            first_name AS cust_first_name,
-            email AS cust_email,
-            active AS cust_active,
-            create_date,
-            country_name AS cust_country,
-            city_name AS cust_city,
-            address AS cust_address
-        FROM (
-                SELECT 
-                    *,
-                    row_number() OVER (PARTITION BY customer_id ORDER BY last_update DESC) AS rn
-                FROM customer)  rank_customer_by_last_update
-        LEFT JOIN address_all_info USING(address_id)
-        WHERE rn = 1),
-            staff_last_update AS (
-        SELECT 
-            staff_id,
-            last_name AS staff_last_name,
-            first_name AS staff_first_name,
-            email AS staff_email,
-            active AS staff_active,
-            country_name AS staff_country,
-            city_name AS staff_city,
-            address AS staff_address
-        FROM (
-                SELECT 
-                    *,
-                    row_number() OVER (PARTITION BY staff_id ORDER BY last_update DESC) AS rn
-                FROM staff)  rank_satt_by_last_update
-        LEFT JOIN address_all_info USING(address_id)
-        WHERE rn = 1),
-            rental_last_update AS (
+    WITH address_all_info AS (
+            SELECT
+                address_id,
+                address,
+                city_name,
+                country_name
+            FROM 
+                address
+            LEFT JOIN 
+                city USING(city_id)
+            LEFT JOIN 
+                country USING(country_id)),
+                customer_add_address_info AS (
+            SELECT 
+                customer_id,
+                last_name AS cust_last_name, 
+                first_name AS cust_first_name,
+                email AS cust_email,
+                active AS cust_active,
+                create_date,
+                country_name AS cust_country,
+                city_name AS cust_city,
+                address AS cust_address
+            FROM customer
+            LEFT JOIN address_all_info USING(address_id)),
+                staff_add_address_info AS (
+            SELECT 
+                staff_id,
+                last_name AS staff_last_name,
+                first_name AS staff_first_name,
+                email AS staff_email,
+                active AS staff_active,
+                country_name AS staff_country,
+                city_name AS staff_city,
+                address AS staff_address
+            FROM staff
+            LEFT JOIN address_all_info USING(address_id))
         SELECT 
             rental_id,
             rental_date,
             return_date,
-            customer_id,
+            rating,
+            -- staff
             staff_id,
-            rating
-        FROM (
-                SELECT 
-                    *,
-                    row_number() OVER (PARTITION BY rental_id ORDER BY last_update DESC) AS rn
-                FROM rental)  rank_rental_by_last_update
-        WHERE rn = 1)
-    SELECT 
-        rental_id,
-        rental_date,
-        return_date,
-        rating,
-        -- staff
-        staff_id,
-        staff_last_name,
-        staff_first_name,
-        staff_email,
-        staff_active,
-        staff_country,
-        staff_city,
-        staff_address,
-        -- customer
-        customer_id,
-        cust_last_name,
-        cust_first_name,
-        cust_email,
-        cust_active,
-        create_date,
-        cust_country,
-        cust_city,
-        cust_address
-    FROM 
-        rental_last_update
-    LEFt JOIN staff_last_update USING(staff_id)
-    LEFT JOIN customer_last_update USING(customer_id)
+            staff_last_name,
+            staff_first_name,
+            staff_email,
+            staff_active,
+            staff_country,
+            staff_city,
+            staff_address,
+            -- customer
+            customer_id,
+            cust_last_name,
+            cust_first_name,
+            cust_email,
+            cust_active,
+            create_date,
+            cust_country,
+            cust_city,
+            cust_address
+        FROM 
+            rental
+        LEFt JOIN staff_add_address_info USING(staff_id)
+        LEFT JOIN customer_add_address_info USING(customer_id)
     """
 
     m_cursor = conn.cursor()
@@ -170,7 +113,6 @@ def extract_data(local_filename):
     results = m_cursor.fetchall()
 
     with open(local_filename, 'w') as fp:
-        rentals = list()
         for result in results:
             f_result = dict()
             f_result["rental_id"] = result[0]
@@ -199,6 +141,7 @@ def extract_data(local_filename):
             f_result["customer"]["address"]["city"] = result[19]
             f_result["customer"]["address"]["address"] = result[20]
             fp.write(json.dumps(f_result)+'\n')
+
         logger.info(f"{local_filename} was successfully created and stored")
 
     fp.close()
