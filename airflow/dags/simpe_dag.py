@@ -4,6 +4,7 @@ from datetime import timedelta
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from functions.helpers import test_function
+from executable.extract_mysql_full import uploading_data_to_gcs_bucket
 from airflow.utils.dates import days_ago
 
 dag = DAG(
@@ -13,9 +14,9 @@ dag = DAG(
     start_date = days_ago(1),
 )
 
-t1 = BashOperator(
-    task_id='print_date',
-    bash_command = 'date',
+t1 = PythonOperator(
+    task_id='upload_data_to_bigquery',
+    python_callable = uploading_data_to_gcs_bucket,
     dag=dag,
 )
 

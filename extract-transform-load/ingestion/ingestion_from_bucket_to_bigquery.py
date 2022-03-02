@@ -77,6 +77,7 @@ uri = f"gs://etl-pipeline-loading/{file_name}.json"
 load_job = client.load_table_from_uri(
     uri, table_id, job_config=job_config
 )  # Make an API request.
+
 load_job.result()  # Waits for the job to complete.
 destination_table = client.get_table(table_id)  # Make an API request.
 logger.info("Loaded {} rows.".format(destination_table.num_rows))

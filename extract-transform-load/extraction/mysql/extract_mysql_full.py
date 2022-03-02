@@ -169,3 +169,4 @@ def uploading_data_to_gcs_bucket():
     logger.info(f"{local_filename} was successfully uploaded to the bucket")
 
 uploading_data_to_gcs_bucket()
+

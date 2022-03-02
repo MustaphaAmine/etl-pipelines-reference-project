@@ -3,6 +3,7 @@ FROM apache/airflow:2.2.4
 ARG AIRFLOW_HOME=/opt/airflow
 ENV AIRFLOW_HOME=${AIRFLOW_HOME}
 
+
 USER root
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \

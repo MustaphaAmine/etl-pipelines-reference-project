@@ -43,7 +43,8 @@ services:
     volumes:
       - ./airflow/airflow.cfg:/opt/airflow/airflow.cfg
       - ./airflow/dags:/opt/airflow/dags
-      # - ./extract-transform-load/extraction/mysql:/opt/airflow/dags/executables
+      - ./extract-transform-load/extraction/mysql/extract_mysql_full.py:/opt/airflow/dags/executables/extract_mysql_full.py
+      - ./extract-transform-load/ingestion/ingestion_from_bucket_to_bigquery.py:/opt/airflow/dags/executables/ingestion_from_bucket_to_bigquery.py
     ports:
       - '8080:8080'
     healthcheck:
