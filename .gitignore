@@ -4,6 +4,10 @@
 /keys
 /extract-transform-load/extraction/mongodb
 /extract-transform-load/extraction/rest-api
+/extract-transform-load/extraction/mysql
+/extract-transform-load/ingestion/ingestion_from_bucket_to_bigquery.py
+/mysql
+
 *__pycache__/
 *.py[cod]
 *$py.class
